@@ -7,38 +7,12 @@ This is a pytorch implementation of [Generative Adversarial Text-to-Image Synthe
 <figure><img src='images/pipeline.png'></figure>
 Image credits [1]
 
-## Requirements
-
-- pytorch 
-- visdom
-- h5py
-- PIL
-- numpy
 
 This implementation currently only support running with GPUs.
-
-## Implementation details
-
-This implementation follows the Generative Adversarial Text-to-Image Synthesis paper [1], however it works more on training stablization and preventing mode collapses by implementing:
-- Feature matching [2]
-- One sided label smoothing [2]
-- minibatch discrimination [2] (implemented but not used)
-- WGAN [3]
-- WGAN-GP [4] (implemented but not used)
 
 ## Datasets
 
 We used [Caltech-UCSD Birds 200](http://www.vision.caltech.edu/visipedia/CUB-200.html) and [Flowers](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/) datasets, we converted each dataset (images, text embeddings) to hd5 format. 
-
-We used the [text embeddings](https://github.com/reedscot/icml2016) provided by the paper authors
-
-**To use this code you can either:**
-
-- Use the converted hd5 datasets,  [birds](https://drive.google.com/open?id=1mNhn6MYpBb-JwE86GC1kk0VJsYj-Pn5j), [flowers](https://drive.google.com/open?id=1EgnaTrlHGaqK5CCgHKLclZMT_AMSTyh8)
-- Convert the data youself
-  1. download the dataset as described [here](https://github.com/reedscot/cvpr2016)
-  2. Add the paths to the dataset to `config.yaml` file.
-  3. Use [convert_cub_to_hd5_script](convert_cub_to_hd5_script.py) or [convert_flowers_to_hd5_script](convert_flowers_to_hd5_script.py) script to convert the dataset.
   
 **Hd5 file taxonomy**
 `
@@ -51,6 +25,21 @@ We used the [text embeddings](https://github.com/reedscot/icml2016) provided by 
       - 'txt'
       
 ## Usage
+
+### Prerequisites
+
+Python 3.10
+
+```
+pip install -r requirements.txt
+```
+
+### Ready Datasets
+
+1. Download and extract the [birds](https://drive.google.com/file/d/0B0ywwgffWnLLLUc2WHYzM0Q2eWc/view?usp=sharing) and [flowers](https://drive.google.com/file/d/0B0ywwgffWnLLMl9uOU91MV80cVU/view?usp=sharing) and [COCO](https://drive.google.com/open?id=0B0ywwgffWnLLamltREhDRjlaT3M) caption data in Torch format.
+2. Download and extract the [birds](https://data.caltech.edu/records/65de6-vp158/files/CUB_200_2011.tgz?download=1) and [flowers](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/102flowers.tgz) and [COCO]() image data.
+3. Use [convert_cub_to_hd5_script](convert_cub_to_hd5_script.py) or [convert_flowers_to_hd5_script](convert_flowers_to_hd5_script.py) script to convert the dataset.
+
 ### Training
 
 `python runtime.py
