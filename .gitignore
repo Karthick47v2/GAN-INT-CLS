@@ -4,3 +4,13 @@ dataset/*
 .idea/
 checkpoints/*
 results/*
+
+images/*
+jpg/*
+flowers_icml/*
+*_c10/*
+*.hdf5
+*.tgz
+*.gz
+*.txt
+*.t7

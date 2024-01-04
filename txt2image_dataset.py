@@ -1,14 +1,10 @@
-import os
 import io
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 import h5py
 import numpy as np
-import pdb
 from PIL import Image
 import torch
-from torch.autograd import Variable
-import pdb
-import torch.nn.functional as F
+
 
 class Text2ImageDataset(Dataset):
 
@@ -31,7 +27,8 @@ class Text2ImageDataset(Dataset):
     def __getitem__(self, idx):
         if self.dataset is None:
             self.dataset = h5py.File(self.datasetFile, mode='r')
-            self.dataset_keys = [str(k) for k in self.dataset[self.split].keys()]
+            self.dataset_keys = [str(k)
+                                 for k in self.dataset[self.split].keys()]
 
         example_name = self.dataset_keys[idx]
         example = self.dataset[self.split][example_name]
@@ -52,15 +49,15 @@ class Text2ImageDataset(Dataset):
         txt = np.array(example['txt']).astype(str)
 
         sample = {
-                'right_images': torch.FloatTensor(right_image),
-                'right_embed': torch.FloatTensor(right_embed),
-                'wrong_images': torch.FloatTensor(wrong_image),
-                'inter_embed': torch.FloatTensor(inter_embed),
-                'txt': str(txt)
-                 }
+            'right_images': torch.FloatTensor(right_image),
+            'right_embed': torch.FloatTensor(right_embed),
+            'wrong_images': torch.FloatTensor(wrong_image),
+            'inter_embed': torch.FloatTensor(inter_embed),
+            'txt': str(txt)
+        }
 
         sample['right_images'] = sample['right_images'].sub_(127.5).div_(127.5)
-        sample['wrong_images'] =sample['wrong_images'].sub_(127.5).div_(127.5)
+        sample['wrong_images'] = sample['wrong_images'].sub_(127.5).div_(127.5)
 
         return sample
 
@@ -81,7 +78,6 @@ class Text2ImageDataset(Dataset):
         example = self.dataset[self.split][example_name]
         return example['embeddings']
 
-
     def validate_image(self, img):
         img = np.array(img, dtype=float)
         if len(img.shape) < 3:
@@ -92,4 +88,3 @@ class Text2ImageDataset(Dataset):
             img = rgb
 
         return img.transpose(2, 0, 1)
-

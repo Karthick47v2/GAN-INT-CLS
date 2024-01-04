@@ -1,20 +1,19 @@
-# Birds CUB dataset
-birds_images_path: '../Data/Birds_dataset/cvpr2016_cub/images/' 
-birds_embedding_path: '../Data/Birds_dataset/cub_icml/'
-birds_text_path: '../Data/Birds_dataset/cvpr2016_cub/text_c10/'
-birds_dataset_path: '../Data/Birds_dataset/text2image/birds.hdf5'
-val_split_path: '../Data/Birds_dataset/cvpr2016_cub/valclasses.txt'
-train_split_path: '../Data/Birds_dataset/cvpr2016_cub/trainclasses.txt'
-test_split_path: '../Data/Birds_dataset/cvpr2016_cub/testclasses.txt'
-
+# # Birds CUB dataset
+# birds_images_path: '../Data/Birds_dataset/cvpr2016_cub/images/'
+# birds_embedding_path: '../Data/Birds_dataset/cub_icml/'
+# birds_text_path: '../Data/Birds_dataset/cvpr2016_cub/text_c10/'
+# birds_dataset_path: '../Data/Birds_dataset/text2image/birds.hdf5'
+# val_split_path: '../Data/Birds_dataset/cvpr2016_cub/valclasses.txt'
+# train_split_path: '../Data/Birds_dataset/cvpr2016_cub/trainclasses.txt'
+# test_split_path: '../Data/Birds_dataset/cvpr2016_cub/testclasses.txt'
 
 # flowers dataset
-flowers_images_path: ''
-flowers_embedding_path: 'flowers_icml/'
-flowers_text_path: 'text_c10/'
+flowers_images_path: ""
+flowers_embedding_path: "flowers_icml/"
+flowers_text_path: "text_c10/"
 
-flowers_dataset_path: 'flowers.hdf5'
+flowers_dataset_path: "flowers.hdf5"
 
-flowers_val_split_path: 'valclasses.txt'
-flowers_train_split_path: 'trainclasses.txt'
-flowers_test_split_path: 'testclasses.txt'
+flowers_val_split_path: "valclasses.txt"
+flowers_train_split_path: "trainclasses.txt"
+flowers_test_split_path: "testclasses.txt"

@@ -60,5 +60,3 @@ for _class in sorted(os.listdir(embedding_path)):
             ex.create_dataset('embeddings', data=e)
             ex.create_dataset('class', data=_class)
             ex.create_dataset('txt', data=txt[c].astype(object), dtype=dt)
-
-        print(example_name, txt[1], _class)
