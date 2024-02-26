@@ -3,7 +3,10 @@ dataset/*
 *.pyc
 .idea/
 checkpoints/*
-results/*
+results0/*
+
+/venv
+/__pycache__
 
 images/*
 jpg/*
@@ -14,3 +17,9 @@ flowers_icml/*
 *.gz
 *.txt
 *.t7
+
+birds/
+flowers/
+
+
+*.pth

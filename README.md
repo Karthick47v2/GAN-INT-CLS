@@ -38,12 +38,12 @@ pip install -r requirements.txt
 
 1. Download and extract the [birds](https://drive.google.com/file/d/0B0ywwgffWnLLLUc2WHYzM0Q2eWc/view?usp=sharing) and [flowers](https://drive.google.com/file/d/0B0ywwgffWnLLMl9uOU91MV80cVU/view?usp=sharing) and [COCO](https://drive.google.com/open?id=0B0ywwgffWnLLamltREhDRjlaT3M) caption data in Torch format.
 2. Download and extract the [birds](https://drive.google.com/open?id=0B0ywwgffWnLLZW9uVHNjb2JmNlE) and [flowers](https://drive.google.com/file/d/0B0ywwgffWnLLcms2WWJQRFNSWXM/view?resourcekey=0-Av8zFbeDDvNcF1sSjDR32w) and [COCO]() Text encoding.
-3. Download and extract the [birds](https://data.caltech.edu/records/65de6-vp158/files/CUB_200_2011.tgz?download=1) and [flowers](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/102flowers.tgz) and [COCO]() image data.
+3. Download and extract the [birds](https://data.caltech.edu/records/65de6-vp158/files/CUB_200_2011.tgz?download=1) and [flowers](ww) and [COCO]() image data.
 4. Use [convert_cub_to_hd5_script](convert_cub_to_hd5_script.py) or [convert_flowers_to_hd5_script](convert_flowers_to_hd5_script.py) script to convert the dataset.
 
 ### Training
 
-`python runtime.py
+`python runtime.py --ds
 
 **Arguments:**
 
@@ -57,9 +57,12 @@ pip install -r requirements.txt
 - `l2_coef` : Feature matching coefficient in the generator loss fucntion for gan and vanilla_gan. default=`100`
 - `pre_trained_disc` : Discriminator pre-tranined model path used for intializing training.
 - `pre_trained_gen` Generator pre-tranined model path used for intializing training.
-- `batch_size`: Batch size. default= `64`
+- `batch_size`: Batch size. default = `64`
 - `num_workers`: Number of dataloader workers used for fetching data. default = `8`
 - `epochs` : Number of training epochs. default=`200`
+- `eval_batch_size` : Evaluation batch size. default = `512`
+- `eval_interval` : Interval for evaluating GAN. default = `10`
+- `ds` : Enable efficient data selection. default `False`
 
 ## Results
 
