@@ -50,10 +50,10 @@ for _class in sorted(os.listdir(embedding_path)):
 
         img_path = os.path.join(images_path, img_path)
         if split != train or (split == train and img_path in coreset_imgs):
-            # if True:
+        # if True:
             img = open(img_path, 'rb').read()
 
-            txt_choice = np.random.choice(range(10), 5)
+            txt_choice = np.random.choice(range(10), 10)  # 5
 
             embeddings = embeddings[txt_choice]
             txt = np.array(txt)

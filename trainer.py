@@ -15,7 +15,7 @@ from time import time
 import shutil
 
 
-device = 'cuda:1'
+device = 'cuda'
 
 
 class Trainer(object):
@@ -24,8 +24,7 @@ class Trainer(object):
             config = yaml.safe_load(f)
 
         self.generator = gan_factory.generator_factory(type).to(device)
-        self.discriminator = gan_factory.discriminator_factory(
-            type) .to(device)
+        self.discriminator = gan_factory.discriminator_factory(type).to(device)
 
         if pre_trained_disc:
             self.discriminator.load_state_dict(torch.load(pre_trained_disc))
@@ -241,19 +240,19 @@ class Trainer(object):
 
         t = time()
 
-        noise = torch.randn(
-            self.batch_size * 2 if self.ds else self.batch_size, 100, 1, 1).to(device)
+        # noise = torch.randn(
+        #     self.batch_size * 2 if self.ds else self.batch_size, 100, 1, 1).to(device)
 
-        real_labels = torch.ones(noise.size(0)).to(device)
-        fake_labels = torch.zeros(noise.size(0)).to(device)
-        smoothed_real_labels = torch.FloatTensor(
-            Utils.smooth_label(real_labels.to(device).cpu().numpy(), -0.1)).to(device)
+        # real_labels = torch.ones(noise.size(0)).to(device)
+        # fake_labels = torch.zeros(noise.size(0)).to(device)
+        # smoothed_real_labels = torch.FloatTensor(
+        #     Utils.smooth_label(real_labels.to(device).cpu().numpy(), -0.1)).to(device)
 
         for epoch in range(1, self.num_epochs+1):
 
-            if self.ds and 400 > epoch > 300 and epoch % 20 == 1:
-                print('Inserting data')
-                self.al_method()
+            # if self.ds and 400 > epoch > 300 and epoch % 20 == 1:
+            #     print('Inserting data')
+            #     self.al_method()
 
             d, g, dx, dgx = [], [], [], []
 
@@ -278,6 +277,13 @@ class Trainer(object):
                 # =============================================
 
                 # Train the discriminator
+                noise = torch.randn(right_embed.size(0), 100, 1, 1).to(device)
+
+                real_labels = torch.ones(noise.size(0)).to(device)
+                fake_labels = torch.zeros(noise.size(0)).to(device)
+                smoothed_real_labels = torch.FloatTensor(
+                    Utils.smooth_label(real_labels.to(device).cpu().numpy(), -0.1)).to(device)
+
                 self.discriminator.zero_grad()
 
                 outputs, activation_real = self.discriminator(
@@ -287,7 +293,8 @@ class Trainer(object):
 
                 if self.ds:
                     real_loss += criterion(
-                        outputs[self.batch_size:], smoothed_real_labels[self.batch_size:])  # * 10
+                        # * 10
+                        outputs[self.batch_size:], smoothed_real_labels[self.batch_size:])
 
                 real_score = outputs
 
@@ -304,7 +311,8 @@ class Trainer(object):
 
                 if self.ds:
                     fake_loss += criterion(
-                        outputs[self.batch_size:], fake_labels[self.batch_size:])  # * 10
+                        # * 10
+                        outputs[self.batch_size:], fake_labels[self.batch_size:])
 
                 fake_score = outputs
 
@@ -322,6 +330,8 @@ class Trainer(object):
                 # Train the generator
 
                 self.generator.zero_grad()
+
+                noise = torch.randn(right_embed.size(0), 100, 1, 1).to(device)
 
                 fake_images = self.generator(right_embed, noise)
 
@@ -384,8 +394,6 @@ class Trainer(object):
                 print('IS:', inception_score, 'MAX IS:', max_inception_score)
 
     def predict(self, results):
-        noise = torch.randn(self.eval_batch_size, 100, 1, 1).to(device)
-
         if not os.path.exists(f'{results}/'):
             os.makedirs(f'{results}/')
 
@@ -394,6 +402,8 @@ class Trainer(object):
                 right_embed = sample['right_embed'].float().to(device)
                 txt = sample['txt']
 
+                noise = torch.randn(right_embed.size(0), 100, 1, 1).to(device)
+
                 fake_images = self.generator(right_embed, noise)
 
                 for image, t in zip(fake_images, txt):
@@ -401,3 +411,5 @@ class Trainer(object):
                         127.5).byte().permute(1, 2, 0).cpu().numpy())
                     im.save(
                         f'{results}/{t.replace("/", "")[:100]}.jpg')
+
+# random_10 5610 - IS: 1.0069015809146857 MAX IS: 1.0069015809146857

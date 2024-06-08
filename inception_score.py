@@ -4,6 +4,7 @@ from torch.autograd import Variable
 from torch.nn import functional as F
 import torch.utils.data
 
+import torchvision
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 
@@ -49,7 +50,7 @@ def inception_score(imgs, device, batch_size=32, resize=False, splits=1):
 
     # Load inception model
     inception_model = inception_v3(
-        pretrained=True, transform_input=False).type(dtype).to(device)
+        pretrained=True, transform_input=False, weights=torchvision.models.Inception_V3_Weights.IMAGENET1K_V1).type(dtype).to(device)
 
     inception_model.eval()
     up = nn.Upsample(size=(299, 299), mode='bilinear').type(dtype).to(device)

@@ -18,6 +18,7 @@ from torchvision.models.inception import inception_v3
 from torch.utils.data import DataLoader, ConcatDataset, Dataset
 
 from coreset import Coreset_Greedy
+import random
 
 # torch.manual_seed(42)
 # torch.cuda.manual_seed(42)
@@ -236,10 +237,10 @@ for _class in sorted(os.listdir(embedding_path)):
             # targets += target
         # print(len(targets))
 
-        coreset = Coreset_Greedy(embeddings)
-        temp = coreset.sample(0.10)
+        # coreset = Coreset_Greedy(embeddings)
+        # temp = coreset.sample(0.10)
 
-        # temp = random.sample(range(len(embeddings)), int(0.1 * (len(embeddings))))
+        temp = random.sample(range(len(embeddings)), int(0.1 * (len(embeddings))))
 
         class_paths += [paths[i] for i in temp]
 final_paths += class_paths
