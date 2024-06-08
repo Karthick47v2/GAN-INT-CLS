@@ -49,8 +49,7 @@ for _class in sorted(os.listdir(embedding_path)):
         f.close()
 
         img_path = os.path.join(images_path, img_path)
-        if split != train or (split == train and img_path in coreset_imgs):
-        # if True:
+        if split != train:
             img = open(img_path, 'rb').read()
 
             txt_choice = np.random.choice(range(10), 10)  # 5
@@ -67,3 +66,20 @@ for _class in sorted(os.listdir(embedding_path)):
                 ex.create_dataset('embeddings', data=e)
                 ex.create_dataset('class', data=_class)
                 ex.create_dataset('txt', data=txt[c].astype(object), dtype=dt)
+        else:
+            c_img_path = img_path.split('.')[0]
+            for i in range(10):
+                if c_img_path + '_' + str(i) in coreset_imgs:
+                    img = open(img_path, 'rb').read()
+
+                    e = embeddings[i]
+                    t = np.array(txt)
+                    t = t[i]
+                    dt = h5py.special_dtype(vlen=str)
+
+                    ex = split.create_group(example_name + '_' + str(i))
+                    ex.create_dataset('name', data=example_name)
+                    ex.create_dataset('img', data=np.void(img))
+                    ex.create_dataset('embeddings', data=e)
+                    ex.create_dataset('class', data=_class)
+                    ex.create_dataset('txt', data=t.astype(object), dtype=dt)

@@ -17,11 +17,11 @@ flowers_images_path: "flowers"
 flowers_embedding_path: "flowers/flowers_icml/"
 flowers_text_path: "flowers/text_c10/"
 
-flowers_dataset_path: "flowers/flowers_r10.hdf5"
-flowers_dataset_path_full: "flowers/flowers.hdf5"
+flowers_dataset_path: "flowers/flowers_c10.hdf5"
+flowers_dataset_path_full: "flowers/flowers_c10.hdf5"
 
 flowers_val_split_path: "flowers/valclasses.txt"
 flowers_train_split_path: "flowers/trainclasses.txt"
 flowers_test_split_path: "flowers/testclasses.txt"
 
-flowers_coreset_path: "flowers/flowers_r10.txt"
+flowers_coreset_path: "flowers/flowers_c10.txt"

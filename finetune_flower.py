@@ -210,15 +210,19 @@ for _class in sorted(os.listdir(embedding_path)):
 
             # if len(doc) < 25:
             # if True:
-            paths.append(os.path.join(
-                config['flowers_images_path'], 'jpg', example.split('/')[-1][:-3] + '.jpg'))
-            targets.append(int(_class.split('_')[1]))
+            # paths.append(os.path.join(
+            #     config['flowers_images_path'], 'jpg', example.split('/')[-1][:-3] + '.jpg'))
+            paths.extend([os.path.join(
+                config['flowers_images_path'], 'jpg', example.split('/')[-1][:-3] + '_' + str(i)) for i in range(10)])
+            targets.append([int(_class.split('_')[1]) for _ in range(10)])
 
             example_data = torchfile.load(example)
             # embeddings.append(
             #     np.array(example_data[b'txt']).ravel())
-            embeddings.append(
-                np.mean(np.array(example_data[b'txt']), axis=0))
+
+            embeddings.extend(example_data[b'txt'])
+            # embeddings.append(
+            #     np.mean(np.array(example_data[b'txt']), axis=0))
 
         # dataset = ImageDataset(
         #     paths, targets, txt_embeddings, transform=test_transform)
@@ -237,10 +241,10 @@ for _class in sorted(os.listdir(embedding_path)):
             # targets += target
         # print(len(targets))
 
-        # coreset = Coreset_Greedy(embeddings)
-        # temp = coreset.sample(0.10)
+        coreset = Coreset_Greedy(embeddings)
+        temp = coreset.sample(0.10)
 
-        temp = random.sample(range(len(embeddings)), int(0.1 * (len(embeddings))))
+        # temp = random.sample(range(len(embeddings)), int(0.1 * (len(embeddings))))
 
         class_paths += [paths[i] for i in temp]
 final_paths += class_paths

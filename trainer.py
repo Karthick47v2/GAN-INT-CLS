@@ -53,8 +53,8 @@ class Trainer(object):
                 config['flowers_dataset_path'], config['flowers_dataset_path_full'], split=split)
             self.val_dataset = Text2ImageDataset(
                 config['flowers_dataset_path'], config['flowers_dataset_path_full'], split=1)
-            self.temp_dataset = Text2ImageDataset(
-                'flowers/flowers_50.hdf5', config['flowers_dataset_path_full'], split=0)
+            # self.temp_dataset = Text2ImageDataset(
+            #     'flowers/flowers_50.hdf5', config['flowers_dataset_path_full'], split=0)
         else:
             print('Dataset not supported, please select either birds or flowers.')
             exit()
@@ -80,8 +80,8 @@ class Trainer(object):
         self.val_data_loader = DataLoader(self.val_dataset, batch_size=self.eval_batch_size, shuffle=False,
                                           num_workers=self.num_workers)
 
-        self.temp_dataloader = DataLoader(self.temp_dataset, batch_size=512, shuffle=True,
-                                          num_workers=self.num_workers, drop_last=True)
+        # self.temp_dataloader = DataLoader(self.temp_dataset, batch_size=512, shuffle=True,
+        #                                   num_workers=self.num_workers, drop_last=True)
 
         self.optimD = torch.optim.Adam(
             self.discriminator.parameters(), lr=self.lr, betas=(self.beta1, 0.999))

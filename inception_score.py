@@ -49,8 +49,7 @@ def inception_score(imgs, device, batch_size=32, resize=False, splits=1):
     dataloader = torch.utils.data.DataLoader(imgs, batch_size=batch_size)
 
     # Load inception model
-    inception_model = inception_v3(
-        pretrained=True, transform_input=False, weights=torchvision.models.Inception_V3_Weights.IMAGENET1K_V1).type(dtype).to(device)
+    inception_model = inception_v3(transform_input=False, weights=torchvision.models.Inception_V3_Weights.IMAGENET1K_V1).type(dtype).to(device)
 
     inception_model.eval()
     up = nn.Upsample(size=(299, 299), mode='bilinear').type(dtype).to(device)
