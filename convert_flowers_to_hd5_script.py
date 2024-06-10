@@ -69,12 +69,14 @@ for _class in sorted(os.listdir(embedding_path)):
         else:
             c_img_path = img_path.split('.')[0]
             for i in range(10):
-                if c_img_path + '_' + str(i) in coreset_imgs:
+                # if c_img_path + '_' + str(i) in coreset_imgs:
+                if True:
                     img = open(img_path, 'rb').read()
 
                     e = embeddings[i]
                     t = np.array(txt)
                     t = t[i]
+
                     dt = h5py.special_dtype(vlen=str)
 
                     ex = split.create_group(example_name + '_' + str(i))

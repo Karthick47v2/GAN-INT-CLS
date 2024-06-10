@@ -241,10 +241,11 @@ for _class in sorted(os.listdir(embedding_path)):
             # targets += target
         # print(len(targets))
 
-        coreset = Coreset_Greedy(embeddings)
-        temp = coreset.sample(0.10)
+        # coreset = Coreset_Greedy(embeddings)
+        # temp = coreset.sample(0.05)
 
-        # temp = random.sample(range(len(embeddings)), int(0.1 * (len(embeddings))))
+        temp = random.sample(range(len(embeddings)),
+                             int(0.05 * (len(embeddings))))
 
         class_paths += [paths[i] for i in temp]
 final_paths += class_paths
